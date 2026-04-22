@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pegasus View</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Lexend:wght@300;400;500;600&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>@import url('https://fonts.cdnfonts.com/css/opendyslexic');</style>
+</head>
+<body>
+<div class="popup">
+
+  <header class="header">
+    <div class="brand">
+      <img class="brand-icon" src="icons/icon48.png" alt="">
+      <span class="brand-name">Pegasus View</span>
+    </div>
+    <label class="switch" title="Enable / Disable">
+      <input type="checkbox" id="enabled">
+      <span class="switch-track"><span class="switch-knob"></span></span>
+    </label>
+  </header>
+
+  <div class="controls-row">
+    <div class="select-wrap">
+      <select id="fontFamily">
+        <option value="OpenDyslexic">OpenDyslexic</option>
+        <option value="Atkinson Hyperlegible">Atkinson Hyperlegible</option>
+        <option value="Lexend">Lexend</option>
+        <option value="Comic Neue">Comic Neue</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Arial">Arial</option>
+        <option value="inherit">Site Default</option>
+      </select>
+      <svg class="select-arrow" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <label class="color-btn" id="fontColor-btn" title="Font color">
+      <input type="color" id="fontColor" value="#1a1a1a">
+    </label>
+    <label class="color-btn" id="bgColor-btn" title="Background color">
+      <input type="color" id="bgColor" value="#fffde7">
+    </label>
+  </div>
+
+  <div class="preview-wrap" id="preview-wrap">
+    <span class="preview-label">Preview</span>
+    <p class="preview-text" id="preview-text">The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump!</p>
+  </div>
+
+  <div class="controls-section">
+
+    <div class="control-row">
+      <div class="control-icon">
+        <span id="icon-size" class="icon-size-text">Aa</span>
+      </div>
+      <span class="control-label">Font Size</span>
+      <div class="stepper">
+        <button class="step-btn" id="size-down" aria-label="Decrease font size">−</button>
+        <span class="step-val" id="fontSize-display">18px</span>
+        <button class="step-btn" id="size-up" aria-label="Increase font size">+</button>
+      </div>
+    </div>
+
+    <div class="control-row">
+      <div class="control-icon">
+        <svg width="22" height="20" viewBox="0 0 22 20" fill="none" aria-hidden="true">
+          <rect x="0" y="0"  width="22" height="2.5" rx="1.25" fill="currentColor"/>
+          <rect x="0" y="8.75" width="22" height="2.5" rx="1.25" fill="currentColor"/>
+          <rect x="0" y="17.5" width="14" height="2.5" rx="1.25" fill="currentColor"/>
+        </svg>
+      </div>
+      <span class="control-label">Line Spacing</span>
+      <div class="stepper">
+        <button class="step-btn" id="line-down" aria-label="Decrease line spacing">−</button>
+        <span class="step-val" id="lineSpacing-display">1.75×</span>
+        <button class="step-btn" id="line-up" aria-label="Increase line spacing">+</button>
+      </div>
+    </div>
+
+    <div class="control-row">
+      <div class="control-icon">
+        <span id="icon-letter" class="icon-letter-text">AB</span>
+      </div>
+      <span class="control-label">Letter Spacing</span>
+      <div class="stepper">
+        <button class="step-btn" id="letter-down" aria-label="Decrease letter spacing">−</button>
+        <span class="step-val" id="letterSpacing-display">0px</span>
+        <button class="step-btn" id="letter-up" aria-label="Increase letter spacing">+</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <button id="reset" class="reset-btn">Reset to Defaults</button>
+  </footer>
+
+</div>
+<script src="popup.js"></script>
+</body>
+</html>

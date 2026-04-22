@@ -1,0 +1,336 @@
+/* Pegasus View — Popup Styles */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --accent:       #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-dim:   rgba(37, 99, 235, 0.10);
+  --bg:           #f8faff;
+  --surface:      #eef2ff;
+  --border:       #c7d7fe;
+  --text:         #1e293b;
+  --text-muted:   #64748b;
+  --danger:       #f97316;
+  --danger-hover: #ea6c0a;
+  --radius-sm:    6px;
+  --radius:       10px;
+  --shadow-sm:    0 1px 3px rgba(37,99,235,.12);
+}
+
+html, body {
+  width: 380px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  border-bottom: 1.5px solid var(--border);
+  background: var(--bg);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.brand-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.3px;
+  color: var(--accent);
+}
+
+/* ── Controls row ────────────────────────────────────────────── */
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1.5px solid var(--border);
+  background: var(--bg);
+}
+
+.select-wrap {
+  flex: 1;
+  position: relative;
+}
+
+.select-wrap select {
+  width: 100%;
+  padding: 8px 28px 8px 10px;
+  background: white;
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.select-wrap select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 9px;
+  height: 5px;
+  pointer-events: none;
+  color: var(--text-muted);
+}
+
+.color-btn {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border);
+  cursor: pointer;
+  flex-shrink: 0;
+  display: block;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  overflow: hidden;
+}
+
+.color-btn:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.color-btn input[type="color"] {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+/* ── Preview ─────────────────────────────────────────────────── */
+
+.preview-wrap {
+  padding: 13px 16px 14px;
+  background: var(--surface);
+  border-bottom: 1.5px solid var(--border);
+  transition: background-color 0.2s;
+}
+
+.preview-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.65;
+  margin-bottom: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.preview-text {
+  transition: font-family 0.15s, font-size 0.1s, color 0.15s,
+              line-height 0.15s, letter-spacing 0.1s;
+}
+
+/* ── Controls section (3 rows) ───────────────────────────────── */
+
+.controls-section {
+  background: var(--bg);
+  border-bottom: 1.5px solid var(--border);
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.control-row:last-child {
+  border-bottom: none;
+}
+
+.control-icon {
+  width: 32px;
+  flex-shrink: 0;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-size-text {
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--accent);
+  transition: font-size 0.15s;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.icon-letter-text {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0px;
+  transition: letter-spacing 0.1s;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.control-label {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ── Step buttons + value ────────────────────────────────────── */
+
+.step-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: white;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+  flex-shrink: 0;
+}
+
+.step-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.step-btn:active {
+  transform: scale(0.88);
+}
+
+.step-val {
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  min-width: 44px;
+  text-align: center;
+}
+
+/* ── Toggle Switch ───────────────────────────────────────────── */
+
+.switch {
+  display: inline-flex;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+
+.switch-track {
+  position: relative;
+  display: block;
+  width: 42px;
+  height: 24px;
+  background: var(--border);
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.switch-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s;
+}
+
+.switch input:checked ~ .switch-track              { background: var(--accent); }
+.switch input:checked ~ .switch-track .switch-knob { transform: translateX(18px); }
+.switch input:focus-visible ~ .switch-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+
+.footer {
+  padding: 12px 16px 14px;
+  background: var(--bg);
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 9px;
+  background: transparent;
+  color: var(--danger);
+  border: 1.5px solid var(--danger);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.reset-btn:hover {
+  background: var(--danger);
+  color: white;
+}

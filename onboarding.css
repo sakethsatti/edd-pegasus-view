@@ -1,0 +1,336 @@
+/* Pegasus View — Onboarding Styles */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --accent:       #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-dim:   rgba(37, 99, 235, 0.10);
+  --panel-bg:     #f8faff;
+  --panel-border: #c7d7fe;
+  --ui-text:      #1e293b;
+  --ui-muted:     #64748b;
+  --danger:       #f97316;
+  --radius-sm:    8px;
+  --radius:       12px;
+  --shadow:       0 2px 12px rgba(37,99,235,.10);
+  --ui-font:      -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+html {
+  font-size: 16px;
+  background: #fffde7;
+}
+
+body {
+  min-height: 100vh;
+  background: inherit;
+  color: #1a1a2e;
+}
+
+/* ── Two-column layout ───────────────────────────────────────── */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  min-height: 100vh;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* ── Main content (dyslexia-readable, live-updated) ──────────── */
+
+.content {
+  padding: 0 48px 80px 48px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.content-inner {
+  max-width: 620px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 48px 0 40px;
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+  margin-bottom: 44px;
+}
+
+.page-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.page-title {
+  font-size: 2em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  font-family: var(--ui-font);
+  line-height: 1.1;
+}
+
+.page-subtitle {
+  font-size: 1em;
+  opacity: 0.65;
+  margin-top: 4px;
+}
+
+.section {
+  margin-bottom: 44px;
+}
+
+.section h2 {
+  font-size: 1.4em;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: inherit;
+}
+
+.section p {
+  margin-bottom: 16px;
+  max-width: 60ch;
+}
+
+.section p:last-child {
+  margin-bottom: 0;
+}
+
+.section strong {
+  font-weight: 700;
+}
+
+/* ── Settings panel (UI font, fixed right) ───────────────────── */
+
+.panel {
+  background: var(--panel-bg);
+  border-left: 2px solid var(--panel-border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  font-family: var(--ui-font);
+  scrollbar-width: thin;
+  scrollbar-color: var(--panel-border) transparent;
+}
+
+.panel-inner {
+  padding: 32px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: var(--ui-font);
+  letter-spacing: -0.2px;
+}
+
+.panel-hint {
+  font-size: 13px;
+  color: var(--ui-muted);
+  line-height: 1.5;
+  margin-top: -10px;
+}
+
+/* ── Individual setting rows ─────────────────────────────────── */
+
+.setting {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.setting-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ui-muted);
+  font-family: var(--ui-font);
+}
+
+/* ── Select ──────────────────────────────────────────────────── */
+
+.select-wrap {
+  position: relative;
+}
+
+.select-wrap select {
+  width: 100%;
+  padding: 10px 32px 10px 12px;
+  background: white;
+  color: var(--ui-text);
+  border: 1.5px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--ui-font);
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.select-wrap select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 6px;
+  pointer-events: none;
+  color: var(--ui-muted);
+}
+
+/* ── Steppers ────────────────────────────────────────────────── */
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.step-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--panel-border);
+  background: white;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: var(--ui-font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+  flex-shrink: 0;
+}
+
+.step-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.step-btn:active { transform: scale(0.90); }
+
+.step-val {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--ui-font);
+  color: var(--accent);
+  text-align: center;
+}
+
+/* ── Color pickers ───────────────────────────────────────────── */
+
+.setting-colors {
+  flex-direction: row;
+  gap: 16px;
+}
+
+.color-setting {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.color-btn {
+  position: relative;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--panel-border);
+  cursor: pointer;
+  display: block;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  overflow: hidden;
+}
+
+.color-btn:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.color-btn input[type="color"] {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+/* ── Save button ─────────────────────────────────────────────── */
+
+.save-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--ui-font);
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow);
+  letter-spacing: 0.01em;
+}
+
+.save-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 4px 16px rgba(37,99,235,.28);
+}
+
+.save-btn:active { transform: scale(0.98); }
+
+.panel-note {
+  font-size: 12px;
+  color: var(--ui-muted);
+  text-align: center;
+  line-height: 1.5;
+  margin-top: -10px;
+}
+
+/* ── Responsive: narrow screen stacks vertically ─────────────── */
+
+@media (max-width: 700px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+  .content { padding: 24px 24px 40px; }
+  .panel {
+    position: static;
+    height: auto;
+    border-left: none;
+    border-top: 2px solid var(--panel-border);
+  }
+}

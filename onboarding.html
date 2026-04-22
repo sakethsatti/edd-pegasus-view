@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Pegasus View</title>
+  <link rel="stylesheet" href="onboarding.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Lexend:wght@300;400;500;600&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>@import url('https://fonts.cdnfonts.com/css/opendyslexic');</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Main readable content ───────────────────────────────── -->
+  <main class="content" id="content">
+
+    <div class="content-inner">
+
+      <header class="page-header">
+        <img src="icons/icon128.png" alt="Pegasus View" class="page-logo">
+        <div>
+          <h1 class="page-title">Pegasus View</h1>
+          <p class="page-subtitle">Reading made easier, your way.</p>
+        </div>
+      </header>
+
+      <section class="section">
+        <h2>Welcome.</h2>
+        <p>
+          Reading should feel easy. This page lets you set up how
+          text looks across the web. Use the panel on the right to
+          try different settings. The words you are reading right
+          now will change to show you what your choices look like.
+        </p>
+        <p>
+          When you find a setup that feels comfortable, click
+          <strong>Save and Start</strong>. Your settings will
+          be applied to every website you visit.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>What is dyslexia?</h2>
+        <p>
+          Dyslexia is a difference in how the brain processes
+          written words. It affects about one in five people.
+          Letters can seem to move, flip, or blur. Reading can
+          take more effort than it does for others.
+        </p>
+        <p>
+          This is not a measure of how smart you are. Many people
+          with dyslexia are highly creative and fast thinkers.
+          The words just need a little help to stay still.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>How Pegasus View helps.</h2>
+        <p>
+          Pegasus View changes the font, text size, line spacing,
+          and letter spacing on any website. These changes can
+          make words easier to tell apart and sentences easier
+          to follow from start to finish.
+        </p>
+        <p>
+          Some fonts are designed to help readers with dyslexia.
+          Wider spacing between lines gives each row room to
+          breathe. More space between letters stops them from
+          crowding together.
+        </p>
+        <p>
+          Small changes can make a big difference. Try the
+          settings on the right and see what feels best for you.
+          There is no wrong answer.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>A note on colours.</h2>
+        <p>
+          A pale yellow or cream background can be easier on the
+          eyes than a bright white page. Dark blue or dark brown
+          text on a warm background reduces glare and makes words
+          stand out more clearly.
+        </p>
+        <p>
+          Use the colour pickers to find a combination that feels
+          restful. The background colour of this entire page will
+          change when you pick a new one.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Try reading this.</h2>
+        <p>
+          The quick brown fox jumps over the lazy dog. Pack my
+          box with five dozen liquor jugs. How vexingly quick
+          daft zebras jump. The five boxing wizards jump quickly.
+        </p>
+        <p>
+          Sphinx of black quartz, judge my vow. Jackdaws love my
+          big sphinx of quartz. The job requires extra pluck and
+          zeal from every young wage earner.
+        </p>
+        <p>
+          Keep adjusting the settings until these sentences feel
+          comfortable and easy to scan. That is your ideal
+          reading setup.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ── Settings panel ──────────────────────────────────────── -->
+  <aside class="panel">
+    <div class="panel-inner">
+
+      <h2 class="panel-title">Your Settings</h2>
+      <p class="panel-hint">Changes show live in the text on the left.</p>
+
+      <div class="setting">
+        <label class="setting-label" for="fontFamily">Font</label>
+        <div class="select-wrap">
+          <select id="fontFamily">
+            <option value="Atkinson Hyperlegible">Atkinson Hyperlegible</option>
+            <option value="OpenDyslexic">OpenDyslexic</option>
+            <option value="Lexend">Lexend</option>
+            <option value="Comic Neue">Comic Neue</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Arial">Arial</option>
+            <option value="inherit">Site Default</option>
+          </select>
+          <svg class="select-arrow" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="setting">
+        <label class="setting-label">Text Size</label>
+        <div class="stepper">
+          <button class="step-btn" id="size-down">−</button>
+          <span class="step-val" id="fontSize-display">19px</span>
+          <button class="step-btn" id="size-up">+</button>
+        </div>
+      </div>
+
+      <div class="setting">
+        <label class="setting-label">Line Spacing</label>
+        <div class="stepper">
+          <button class="step-btn" id="line-down">−</button>
+          <span class="step-val" id="lineSpacing-display">1.9×</span>
+          <button class="step-btn" id="line-up">+</button>
+        </div>
+      </div>
+
+      <div class="setting">
+        <label class="setting-label">Letter Spacing</label>
+        <div class="stepper">
+          <button class="step-btn" id="letter-down">−</button>
+          <span class="step-val" id="letterSpacing-display">0.25px</span>
+          <button class="step-btn" id="letter-up">+</button>
+        </div>
+      </div>
+
+      <div class="setting setting-colors">
+        <div class="color-setting">
+          <label class="setting-label" for="fontColor">Text colour</label>
+          <label class="color-btn" id="fontColor-btn" title="Pick text colour">
+            <input type="color" id="fontColor" value="#1a1a2e">
+          </label>
+        </div>
+        <div class="color-setting">
+          <label class="setting-label" for="bgColor">Background</label>
+          <label class="color-btn" id="bgColor-btn" title="Pick background colour">
+            <input type="color" id="bgColor" value="#fffde7">
+          </label>
+        </div>
+      </div>
+
+      <button class="save-btn" id="save">Save and Start</button>
+      <p class="panel-note">You can change these any time from the toolbar icon.</p>
+
+    </div>
+  </aside>
+
+</div>
+
+<script src="onboarding.js"></script>
+</body>
+</html>
