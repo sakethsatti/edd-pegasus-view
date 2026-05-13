@@ -1,4 +1,4 @@
-/* Pegasus View — Onboarding Script */
+/* Pegasus View - Onboarding Script */
 'use strict';
 
 const DEFAULTS = {
@@ -22,7 +22,7 @@ function hexOrFallback(v, fallback) { return (v && v !== 'transparent') ? v : fa
 
 let s = { ...DEFAULTS };
 
-/* ── Apply settings to main content text ────────────────────── */
+/* -- Apply settings to main content text ---------------------- */
 
 function applyToPage() {
   const content = $('content');
@@ -40,7 +40,7 @@ function applyToPage() {
     ? s.bgColor : '';
 }
 
-/* ── Update display values ───────────────────────────────────── */
+/* -- Update display values ------------------------------------- */
 
 function updateDisplays() {
   $('fontSize-display').textContent      = s.fontSize + 'px';
@@ -51,7 +51,7 @@ function updateDisplays() {
   $('bgColor-btn').style.background   = hexOrFallback(s.bgColor,   '#fffde7');
 }
 
-/* ── Stepper factory ─────────────────────────────────────────── */
+/* -- Stepper factory ------------------------------------------- */
 
 function wireStepper(upId, downId, key, step, min, max) {
   $(upId).addEventListener('click', () => {
@@ -66,7 +66,7 @@ function wireStepper(upId, downId, key, step, min, max) {
   });
 }
 
-/* ── Init ────────────────────────────────────────────────────── */
+/* -- Init ------------------------------------------------------ */
 
 document.addEventListener('DOMContentLoaded', () => {
 

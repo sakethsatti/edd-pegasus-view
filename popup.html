@@ -36,12 +36,18 @@
       </select>
       <svg class="select-arrow" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
-    <label class="color-btn" id="fontColor-btn" title="Font color">
-      <input type="color" id="fontColor" value="#1a1a1a">
-    </label>
-    <label class="color-btn" id="bgColor-btn" title="Background color">
-      <input type="color" id="bgColor" value="#fffde7">
-    </label>
+    <div class="color-group">
+      <label class="color-btn" id="fontColor-btn" title="Text color">
+        <input type="color" id="fontColor" value="#1a1a1a">
+      </label>
+      <button class="dflt-btn" id="fontColor-default" title="Use page default text color">Page default</button>
+    </div>
+    <div class="color-group">
+      <label class="color-btn" id="bgColor-btn" title="Background color">
+        <input type="color" id="bgColor" value="#fffde7">
+      </label>
+      <button class="dflt-btn" id="bgColor-default" title="Use page default background">Page default</button>
+    </div>
   </div>
 
   <div class="preview-wrap" id="preview-wrap">

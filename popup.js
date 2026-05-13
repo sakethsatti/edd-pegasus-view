@@ -22,7 +22,7 @@ function hexOrWhite(v) { return (v === 'transparent' || !v) ? '#ffffff' : v; }
 
 function round2(n) { return Math.round(n * 100) / 100; }
 
-/* ── Preview ─────────────────────────────────────────────────── */
+/* -- Preview --------------------------------------------------- */
 
 function updatePreview(s) {
   const text = $('preview-text');
@@ -31,7 +31,7 @@ function updatePreview(s) {
 
   text.style.fontFamily    = ff;
   text.style.fontSize      = s.fontSize + 'px';
-  text.style.color         = s.fontColor;
+  text.style.color         = (s.fontColor && s.fontColor !== 'inherit') ? s.fontColor : '';
   text.style.lineHeight    = s.lineSpacing;
   text.style.letterSpacing = s.letterSpacing + 'px';
   text.style.wordSpacing   = s.wordSpacing + 'px';
@@ -42,14 +42,17 @@ function updatePreview(s) {
 }
 
 function updateColorBtnVisuals(s) {
-  $('fontColor-btn').style.background = s.fontColor !== 'transparent' ? s.fontColor : '#1a1a1a';
-  if (s.bgColor && s.bgColor !== 'transparent') {
-    $('bgColor-btn').style.background     = s.bgColor;
-    $('bgColor-btn').style.backgroundSize = '';
-  } else {
-    $('bgColor-btn').style.background     = 'repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 0 0 / 8px 8px';
-    $('bgColor-btn').style.backgroundSize = '';
-  }
+  const fontIsDefault = !s.fontColor || s.fontColor === 'inherit';
+  const bgIsDefault   = !s.bgColor   || s.bgColor   === 'transparent';
+
+  $('fontColor-btn').classList.toggle('is-default', fontIsDefault);
+  $('bgColor-btn').classList.toggle('is-default',   bgIsDefault);
+  $('fontColor-default').classList.toggle('active',  fontIsDefault);
+  $('bgColor-default').classList.toggle('active',    bgIsDefault);
+
+  if (!fontIsDefault) $('fontColor-btn').style.background = s.fontColor;
+  if (!bgIsDefault)   $('bgColor-btn').style.background   = s.bgColor;
+  if (bgIsDefault)    $('bgColor-btn').style.background   = 'repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/8px 8px';
 }
 
 function updateDisplays(s) {
@@ -60,7 +63,7 @@ function updateDisplays(s) {
   // Icon visuals reflect live values
   const sizeIcon = $('icon-size');
   if (sizeIcon) {
-    const px = 10 + (s.fontSize - 12) / (32 - 12) * 9; // scales 10px–19px
+    const px = 10 + (s.fontSize - 12) / (32 - 12) * 9; // scales 10px-19px
     sizeIcon.style.fontSize = px + 'px';
   }
   const letterIcon = $('icon-letter');
@@ -69,7 +72,7 @@ function updateDisplays(s) {
   }
 }
 
-/* ── Apply to tab ────────────────────────────────────────────── */
+/* -- Apply to tab ---------------------------------------------- */
 
 async function applyToTab(settings) {
   try {
@@ -78,7 +81,7 @@ async function applyToTab(settings) {
   } catch { /* chrome:// pages have no content script */ }
 }
 
-/* ── Save + apply ────────────────────────────────────────────── */
+/* -- Save + apply ---------------------------------------------- */
 
 let currentSettings = { ...DEFAULT_SETTINGS };
 
@@ -91,7 +94,7 @@ async function saveAndApply(patch) {
   await applyToTab(currentSettings);
 }
 
-/* ── Load UI from settings ───────────────────────────────────── */
+/* -- Load UI from settings ------------------------------------- */
 
 function loadUI(s) {
   $('enabled').checked    = s.enabled;
@@ -104,7 +107,7 @@ function loadUI(s) {
   updatePreview(s);
 }
 
-/* ── Stepper factory ─────────────────────────────────────────── */
+/* -- Stepper factory ------------------------------------------- */
 
 function wireStepper(upId, downId, key, step, min, max) {
   $(`${upId}`).addEventListener('click', () => {
@@ -117,7 +120,7 @@ function wireStepper(upId, downId, key, step, min, max) {
   });
 }
 
-/* ── Init ────────────────────────────────────────────────────── */
+/* -- Init ------------------------------------------------------ */
 
 document.addEventListener('DOMContentLoaded', () => {
   chrome.storage.sync.get(DEFAULT_SETTINGS, (stored) => {
@@ -132,11 +135,21 @@ document.addEventListener('DOMContentLoaded', () => {
   $('fontColor').addEventListener('input', e => saveAndApply({ fontColor: e.target.value }));
   $('bgColor').addEventListener('input',   e => saveAndApply({ bgColor:   e.target.value }));
 
-  // Font size: 2pt increments, 12–32
+  $('fontColor-default').addEventListener('click', () => {
+    const isNowDefault = currentSettings.fontColor !== 'inherit';
+    saveAndApply({ fontColor: isNowDefault ? 'inherit' : ($('fontColor').value || '#1a1a1a') });
+  });
+
+  $('bgColor-default').addEventListener('click', () => {
+    const isNowDefault = currentSettings.bgColor !== 'transparent';
+    saveAndApply({ bgColor: isNowDefault ? 'transparent' : ($('bgColor').value || '#ffffff') });
+  });
+
+  // Font size: 2pt increments, 12-32
   wireStepper('size-up',     'size-down',    'fontSize',     2,    12, 32);
-  // Line spacing: 0.25× increments, 1.0–3.0
+  // Line spacing: 0.25× increments, 1.0-3.0
   wireStepper('line-up',     'line-down',    'lineSpacing',  0.25, 1.0, 3.0);
-  // Letter spacing: 0.25px increments, 0–10
+  // Letter spacing: 0.25px increments, 0-10
   wireStepper('letter-up',   'letter-down',  'letterSpacing',0.25, 0,  10);
 
   $('reset').addEventListener('click', () => {

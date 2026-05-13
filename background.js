@@ -1,4 +1,5 @@
-/* Pegasus View — Background Service Worker */
+/* Pegasus View - Background Service Worker */
+/* Opens the welcome/setup page the first time the extension is installed. */
 'use strict';
 
 chrome.runtime.onInstalled.addListener((details) => {
