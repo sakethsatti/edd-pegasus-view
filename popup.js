@@ -77,8 +77,16 @@ function updateDisplays(s) {
 async function applyToTab(settings) {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab?.id) await chrome.tabs.sendMessage(tab.id, { action: 'apply', settings });
-  } catch { /* chrome:// pages have no content script */ }
+    if (!tab?.id) return;
+
+    // Inject content.js into the page if it isn't already there.
+    // The guard in content.js (window.__pegasusViewLoaded) prevents
+    // duplicate injection if the popup is opened multiple times on the same page.
+    await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['content.js'] })
+      .catch(() => {}); // throws if already injected — that's fine, ignore it
+
+    await chrome.tabs.sendMessage(tab.id, { action: 'apply', settings });
+  } catch { /* chrome:// and other restricted pages can't be injected */ }
 }
 
 /* -- Save + apply ---------------------------------------------- */

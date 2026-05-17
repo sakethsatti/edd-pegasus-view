@@ -2,6 +2,10 @@
 /* Runs inside every webpage to apply the user's reading settings. */
 'use strict';
 
+// Guard against being injected twice into the same page
+if (window.__pegasusViewLoaded) throw new Error('already loaded');
+window.__pegasusViewLoaded = true;
+
 const DE_STYLE_ID = 'pegasus-view-styles';
 const DE_FONTS_ID = 'pegasus-view-fonts';
 const DE_RULER_ID = 'pegasus-view-ruler';
