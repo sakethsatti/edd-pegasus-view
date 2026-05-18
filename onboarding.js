@@ -18,7 +18,7 @@ const DEFAULTS = {
 
 function $(id) { return document.getElementById(id); }
 function round2(n) { return Math.round(n * 100) / 100; }
-function hexOrFallback(v, fallback) { return (v && v !== 'transparent') ? v : fallback; }
+function hexOrFallback(v, fallback) { return (v && v !== 'transparent' && v !== 'inherit') ? v : fallback; }
 
 let s = { ...DEFAULTS };
 
@@ -30,7 +30,7 @@ function applyToPage() {
 
   content.style.fontFamily    = ff;
   content.style.fontSize      = s.fontSize + 'px';
-  content.style.color         = s.fontColor;
+  content.style.color         = (s.fontColor && s.fontColor !== 'inherit') ? s.fontColor : '';
   content.style.lineHeight    = s.lineSpacing;
   content.style.letterSpacing = s.letterSpacing + 'px';
   content.style.wordSpacing   = s.wordSpacing + 'px';
@@ -42,13 +42,26 @@ function applyToPage() {
 
 /* -- Update display values ------------------------------------- */
 
+function updateColorVisuals() {
+  const fontIsDefault = !s.fontColor || s.fontColor === 'inherit';
+  const bgIsDefault   = !s.bgColor   || s.bgColor   === 'transparent';
+
+  $('fontColor-btn').classList.toggle('is-default', fontIsDefault);
+  $('bgColor-btn').classList.toggle('is-default',   bgIsDefault);
+  $('fontColor-default').classList.toggle('active',  fontIsDefault);
+  $('bgColor-default').classList.toggle('active',    bgIsDefault);
+
+  if (!fontIsDefault) $('fontColor-btn').style.background = s.fontColor;
+  else                $('fontColor-btn').style.background = '';
+  if (!bgIsDefault)   $('bgColor-btn').style.background   = s.bgColor;
+  else                $('bgColor-btn').style.background   = '';
+}
+
 function updateDisplays() {
   $('fontSize-display').textContent      = s.fontSize + 'px';
   $('lineSpacing-display').textContent   = s.lineSpacing + '×';
   $('letterSpacing-display').textContent = s.letterSpacing + 'px';
-
-  $('fontColor-btn').style.background = hexOrFallback(s.fontColor, '#1a1a2e');
-  $('bgColor-btn').style.background   = hexOrFallback(s.bgColor,   '#fffde7');
+  updateColorVisuals();
 }
 
 /* -- Stepper factory ------------------------------------------- */
@@ -93,6 +106,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $('bgColor').addEventListener('input', (e) => {
     s.bgColor = e.target.value;
+    updateDisplays();
+    applyToPage();
+  });
+
+  $('fontColor-default').addEventListener('click', () => {
+    const isNowDefault = s.fontColor !== 'inherit';
+    s.fontColor = isNowDefault ? 'inherit' : ($('fontColor').value || '#1a1a2e');
+    updateDisplays();
+    applyToPage();
+  });
+
+  $('bgColor-default').addEventListener('click', () => {
+    const isNowDefault = s.bgColor !== 'transparent';
+    s.bgColor = isNowDefault ? 'transparent' : ($('bgColor').value || '#fffde7');
     updateDisplays();
     applyToPage();
   });

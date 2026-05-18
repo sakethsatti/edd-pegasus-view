@@ -286,6 +286,39 @@ body {
   padding: 0;
 }
 
+/* ── Website-default buttons ─────────────────────────────────── */
+
+.dflt-btn {
+  width: 100%;
+  padding: 5px 8px;
+  background: white;
+  color: var(--ui-muted);
+  border: 1.5px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--ui-font);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.dflt-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.dflt-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.color-btn.is-default {
+  background: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 0 0/8px 8px !important;
+}
+
 /* ── Save button ─────────────────────────────────────────────── */
 
 .save-btn {
