@@ -1,26 +1,34 @@
-/* Pegasus View — Onboarding Styles */
+/* Pegasus View - Onboarding Styles */
+/* Styles for the welcome/setup page that opens on first install.
+   The page has two columns: readable sample text on the left,
+   settings panel on the right. */
 
+/* Reset: clears browser default spacing so everything behaves consistently. */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* Design tokens - all the shared colours and sizes in one place.
+   Change a colour here and it updates everywhere that uses it. */
 :root {
-  --accent:       #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-dim:   rgba(37, 99, 235, 0.10);
-  --panel-bg:     #f8faff;
-  --panel-border: #c7d7fe;
-  --ui-text:      #1e293b;
-  --ui-muted:     #64748b;
-  --danger:       #f97316;
+  --accent:       #2563eb;                   /* main blue for buttons and labels */
+  --accent-hover: #1d4ed8;                   /* darker blue for hover states */
+  --accent-dim:   rgba(37, 99, 235, 0.10);   /* very faint blue for focus rings */
+  --panel-bg:     #f8faff;                   /* the settings panel background */
+  --panel-border: #c7d7fe;                   /* light blue used for all borders */
+  --ui-text:      #1e293b;                   /* dark navy - main UI text colour */
+  --ui-muted:     #64748b;                   /* secondary/label text */
+  --danger:       #f97316;                   /* orange for destructive actions */
   --radius-sm:    8px;
   --radius:       12px;
   --shadow:       0 2px 12px rgba(37,99,235,.10);
   --ui-font:      -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
+/* The page starts with a warm cream background. The user can change this
+   via the colour picker, which updates document.body.style directly. */
 html {
   font-size: 16px;
   background: #fffde7;
@@ -28,31 +36,41 @@ html {
 
 body {
   min-height: 100vh;
-  background: inherit;
+  background: inherit; /* picks up whatever colour html has */
   color: #1a1a2e;
 }
 
-/* ── Two-column layout ───────────────────────────────────────── */
+/* ---------------------------------------------------------------
+   TWO-COLUMN LAYOUT
+   Left column = the readable sample text (stretches to fill space).
+   Right column = the settings panel (fixed 300px wide).
+   --------------------------------------------------------------- */
 
 .layout {
   display: grid;
   grid-template-columns: 1fr 300px;
   min-height: 100vh;
   max-width: 1060px;
-  margin: 0 auto;
+  margin: 0 auto; /* centres the layout on very wide screens */
 }
 
-/* ── Main content (dyslexia-readable, live-updated) ──────────── */
+/* ---------------------------------------------------------------
+   MAIN CONTENT - the sample text the user reads and adjusts
+   The font, size, colour, and spacing here are all overridden live
+   by onboarding.js as the user moves the controls.
+   --------------------------------------------------------------- */
 
 .content {
   padding: 0 48px 80px 48px;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s; /* smoothly changes with colour picker */
 }
 
+/* Keeps the text itself from getting too wide to read comfortably. */
 .content-inner {
   max-width: 620px;
 }
 
+/* Logo + page title at the very top. */
 .page-header {
   display: flex;
   align-items: center;
@@ -69,6 +87,8 @@ body {
   flex-shrink: 0;
 }
 
+/* The "Pegasus View" heading - uses the UI font because it's a brand name,
+   not part of the readable content the user is adjusting. */
 .page-title {
   font-size: 2em;
   font-weight: 800;
@@ -84,6 +104,7 @@ body {
   margin-top: 4px;
 }
 
+/* Each block of sample text (Welcome, What is dyslexia?, etc.) */
 .section {
   margin-bottom: 44px;
 }
@@ -92,12 +113,12 @@ body {
   font-size: 1.4em;
   font-weight: 700;
   margin-bottom: 16px;
-  color: inherit;
+  color: inherit; /* inherits whatever the user has set for text colour */
 }
 
 .section p {
   margin-bottom: 16px;
-  max-width: 60ch;
+  max-width: 60ch; /* roughly 60 characters wide - comfortable reading width */
 }
 
 .section p:last-child {
@@ -108,15 +129,20 @@ body {
   font-weight: 700;
 }
 
-/* ── Settings panel (UI font, fixed right) ───────────────────── */
+/* ---------------------------------------------------------------
+   SETTINGS PANEL - the controls on the right
+   Uses its own font (the UI font) rather than whatever the user
+   has selected, so the controls stay readable no matter what.
+   Sticks to the top of the viewport as you scroll down.
+   --------------------------------------------------------------- */
 
 .panel {
   background: var(--panel-bg);
   border-left: 2px solid var(--panel-border);
-  position: sticky;
+  position: sticky;           /* stays visible as the left column scrolls */
   top: 0;
   height: 100vh;
-  overflow-y: auto;
+  overflow-y: auto;           /* scrolls internally if there's more than fits */
   font-family: var(--ui-font);
   scrollbar-width: thin;
   scrollbar-color: var(--panel-border) transparent;
@@ -141,10 +167,13 @@ body {
   font-size: 13px;
   color: var(--ui-muted);
   line-height: 1.5;
-  margin-top: -10px;
+  margin-top: -10px; /* pulls it up closer to the title */
 }
 
-/* ── Individual setting rows ─────────────────────────────────── */
+/* ---------------------------------------------------------------
+   INDIVIDUAL SETTING ROWS
+   Each setting (font, size, spacing, etc.) sits in its own block.
+   --------------------------------------------------------------- */
 
 .setting {
   display: flex;
@@ -152,6 +181,7 @@ body {
   gap: 8px;
 }
 
+/* The small uppercase label above each control (e.g. "FONT", "TEXT SIZE"). */
 .setting-label {
   font-size: 12px;
   font-weight: 700;
@@ -161,15 +191,18 @@ body {
   font-family: var(--ui-font);
 }
 
-/* ── Select ──────────────────────────────────────────────────── */
+/* ---------------------------------------------------------------
+   FONT FAMILY SELECT
+   --------------------------------------------------------------- */
 
+/* Wrapper gives us somewhere to position the custom arrow SVG. */
 .select-wrap {
   position: relative;
 }
 
 .select-wrap select {
   width: 100%;
-  padding: 10px 32px 10px 12px;
+  padding: 10px 32px 10px 12px; /* right padding leaves room for the arrow */
   background: white;
   color: var(--ui-text);
   border: 1.5px solid var(--panel-border);
@@ -177,7 +210,7 @@ body {
   font-size: 14px;
   font-weight: 500;
   font-family: var(--ui-font);
-  appearance: none;
+  appearance: none; /* hides the browser default arrow */
   cursor: pointer;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
@@ -188,6 +221,7 @@ body {
   box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
+/* The little chevron icon overlaid on the right side of the select. */
 .select-arrow {
   position: absolute;
   right: 11px;
@@ -195,11 +229,13 @@ body {
   transform: translateY(-50%);
   width: 10px;
   height: 6px;
-  pointer-events: none;
+  pointer-events: none; /* clicks pass through to the select below */
   color: var(--ui-muted);
 }
 
-/* ── Steppers ────────────────────────────────────────────────── */
+/* ---------------------------------------------------------------
+   STEPPER CONTROLS - − value + buttons
+   --------------------------------------------------------------- */
 
 .stepper {
   display: flex;
@@ -226,6 +262,7 @@ body {
   flex-shrink: 0;
 }
 
+/* Fills solid blue on hover. */
 .step-btn:hover {
   background: var(--accent);
   border-color: var(--accent);
@@ -233,8 +270,11 @@ body {
   box-shadow: var(--shadow);
 }
 
+/* Tiny squish when clicked. */
 .step-btn:active { transform: scale(0.90); }
 
+/* The number between the + and − buttons. Tabular nums stops the
+   layout from shifting as the number changes width. */
 .step-val {
   flex: 1;
   font-size: 15px;
@@ -245,13 +285,17 @@ body {
   text-align: center;
 }
 
-/* ── Color pickers ───────────────────────────────────────────── */
+/* ---------------------------------------------------------------
+   COLOUR PICKERS
+   --------------------------------------------------------------- */
 
+/* The text colour and background colour sit side by side. */
 .setting-colors {
   flex-direction: row;
   gap: 16px;
 }
 
+/* Each colour picker (text / background) takes up equal space. */
 .color-setting {
   flex: 1;
   display: flex;
@@ -259,6 +303,7 @@ body {
   gap: 8px;
 }
 
+/* The visible coloured rectangle that the user clicks to open the picker. */
 .color-btn {
   position: relative;
   height: 44px;
@@ -275,6 +320,8 @@ body {
   box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
+/* The actual input is invisible - the coloured button is what you see.
+   It sits underneath and handles all the click events. */
 .color-btn input[type="color"] {
   position: absolute;
   opacity: 0;
@@ -286,7 +333,10 @@ body {
   padding: 0;
 }
 
-/* ── Website-default buttons ─────────────────────────────────── */
+/* ---------------------------------------------------------------
+   "WEBSITE DEFAULT" BUTTONS
+   These toggle between the user's chosen colour and "don't override."
+   --------------------------------------------------------------- */
 
 .dflt-btn {
   width: 100%;
@@ -309,17 +359,22 @@ body {
   color: var(--accent);
 }
 
+/* When "website default" is active, the button highlights solid blue. */
 .dflt-btn.active {
   background: var(--accent);
   border-color: var(--accent);
   color: white;
 }
 
+/* When the colour is on "website default", show a checkerboard pattern
+   to represent "transparent / no colour." */
 .color-btn.is-default {
   background: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 0 0/8px 8px !important;
 }
 
-/* ── Save button ─────────────────────────────────────────────── */
+/* ---------------------------------------------------------------
+   SAVE BUTTON
+   --------------------------------------------------------------- */
 
 .save-btn {
   width: 100%;
@@ -344,6 +399,7 @@ body {
 
 .save-btn:active { transform: scale(0.98); }
 
+/* Small note below the save button. */
 .panel-note {
   font-size: 12px;
   color: var(--ui-muted);
@@ -352,7 +408,11 @@ body {
   margin-top: -10px;
 }
 
-/* ── Responsive: narrow screen stacks vertically ─────────────── */
+/* ---------------------------------------------------------------
+   RESPONSIVE - narrow screens
+   On screens under 700px wide (phones/tablets), switch to a single
+   column: content on top, settings panel below.
+   --------------------------------------------------------------- */
 
 @media (max-width: 700px) {
   .layout {
@@ -361,7 +421,7 @@ body {
   }
   .content { padding: 24px 24px 40px; }
   .panel {
-    position: static;
+    position: static;   /* no longer sticks - just flows normally */
     height: auto;
     border-left: none;
     border-top: 2px solid var(--panel-border);

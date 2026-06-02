@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Pegasus View",
   "version": "1.0.0",
-  "description": "Make any website more readable — customize fonts, spacing, and colors for dyslexic individuals. Powered by Pegasus View.",
+  "description": "Make any website more readable - customize fonts, spacing, and colors for dyslexic individuals. Powered by Pegasus View.",
   "background": {
     "service_worker": "background.js"
   },

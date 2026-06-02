@@ -1,27 +1,34 @@
 /* Pegasus View - Popup Styles */
+/* Styles for the small window that appears when you click the extension icon. */
 
+/* Reset: browsers have their own opinions about spacing and box sizing.
+   This clears those out so everything behaves the same across Chrome versions. */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* Design tokens - all the colours and sizes we use throughout the popup,
+   defined in one place so changing a colour means changing it once, not twenty times. */
 :root {
-  --accent:       #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-dim:   rgba(37, 99, 235, 0.10);
-  --bg:           #f8faff;
-  --surface:      #eef2ff;
-  --border:       #c7d7fe;
-  --text:         #1e293b;
-  --text-muted:   #64748b;
-  --danger:       #f97316;
+  --accent:       #2563eb;                   /* the main blue used for buttons, labels, etc. */
+  --accent-hover: #1d4ed8;                   /* slightly darker blue for hover states */
+  --accent-dim:   rgba(37, 99, 235, 0.10);   /* very faint blue used for focus rings */
+  --bg:           #f8faff;                   /* page background - barely-there blue-white */
+  --surface:      #eef2ff;                   /* slightly darker surface, used in the preview area */
+  --border:       #c7d7fe;                   /* the light blue used for all borders */
+  --text:         #1e293b;                   /* main text colour - dark navy, not pure black */
+  --text-muted:   #64748b;                   /* secondary text, labels, hints */
+  --danger:       #f97316;                   /* orange used for the reset button */
   --danger-hover: #ea6c0a;
-  --radius-sm:    6px;
-  --radius:       10px;
+  --radius-sm:    6px;                       /* small corner rounding */
+  --radius:       10px;                      /* larger corner rounding */
   --shadow-sm:    0 1px 3px rgba(37,99,235,.12);
 }
 
+/* The popup is fixed at 380px wide - Chrome enforces this kind of constraint
+   for extension popups anyway, but being explicit avoids surprises. */
 html, body {
   width: 380px;
   background: var(--bg);
@@ -29,15 +36,18 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   font-size: 13px;
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased; /* makes text look crisper on Mac */
 }
 
+/* The popup root - just stacks its children top to bottom. */
 .popup {
   display: flex;
   flex-direction: column;
 }
 
-/* -- Header ---------------------------------------------------- */
+/* ---------------------------------------------------------------
+   HEADER - logo + on/off toggle
+   --------------------------------------------------------------- */
 
 .header {
   display: flex;
@@ -48,6 +58,7 @@ html, body {
   background: var(--bg);
 }
 
+/* The logo and name sit side by side. */
 .brand {
   display: flex;
   align-items: center;
@@ -58,7 +69,7 @@ html, body {
   width: 26px;
   height: 26px;
   border-radius: 6px;
-  flex-shrink: 0;
+  flex-shrink: 0; /* don't let it shrink if space gets tight */
 }
 
 .brand-name {
@@ -68,7 +79,9 @@ html, body {
   color: var(--accent);
 }
 
-/* -- Controls row ---------------------------------------------- */
+/* ---------------------------------------------------------------
+   CONTROLS ROW - font picker + colour swatches
+   --------------------------------------------------------------- */
 
 .controls-row {
   display: flex;
@@ -79,21 +92,22 @@ html, body {
   background: var(--bg);
 }
 
+/* The font dropdown stretches to fill whatever space is left after the colour swatches. */
 .select-wrap {
   flex: 1;
-  position: relative;
+  position: relative; /* needed so the custom arrow SVG can be positioned inside it */
 }
 
 .select-wrap select {
   width: 100%;
-  padding: 8px 28px 8px 10px;
+  padding: 8px 28px 8px 10px; /* extra right padding so text doesn't overlap the arrow */
   background: white;
   color: var(--text);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 13px;
   font-weight: 500;
-  appearance: none;
+  appearance: none; /* hides the browser's default dropdown arrow so we can use our own */
   cursor: pointer;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
@@ -101,9 +115,10 @@ html, body {
 .select-wrap select:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-dim);
+  box-shadow: 0 0 0 3px var(--accent-dim); /* soft glow ring instead of the ugly default outline */
 }
 
+/* Our custom dropdown arrow - an SVG chevron positioned over the right edge of the select. */
 .select-arrow {
   position: absolute;
   right: 9px;
@@ -111,10 +126,11 @@ html, body {
   transform: translateY(-50%);
   width: 9px;
   height: 5px;
-  pointer-events: none;
+  pointer-events: none; /* clicks pass through to the select underneath */
   color: var(--text-muted);
 }
 
+/* Each colour picker (text colour, background colour) sits in its own column group. */
 .color-group {
   display: flex;
   flex-direction: column;
@@ -123,6 +139,7 @@ html, body {
   flex-shrink: 0;
 }
 
+/* The coloured square button that wraps the hidden colour input. */
 .color-btn {
   position: relative;
   width: 34px;
@@ -141,10 +158,12 @@ html, body {
   box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
+/* The actual colour picker input is invisible - the coloured button above is what you see.
+   The input sits underneath and handles the click. */
 .color-btn input[type="color"] {
   position: absolute;
   opacity: 0;
-  inset: 0;
+  inset: 0;       /* stretches to fill the button */
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -152,11 +171,13 @@ html, body {
   padding: 0;
 }
 
+/* When the colour is set to "page default", the swatch fades out and becomes unclickable. */
 .color-btn.is-default {
   opacity: 0.35;
   pointer-events: none;
 }
 
+/* The small "Page default" pill button under each colour swatch. */
 .dflt-btn {
   font-size: 9px;
   font-weight: 700;
@@ -179,19 +200,22 @@ html, body {
   color: var(--accent);
 }
 
+/* When "page default" is the active mode, the button stays highlighted. */
 .dflt-btn.active {
   background: var(--accent-dim);
   border-color: var(--accent);
   color: var(--accent);
 }
 
-/* -- Preview --------------------------------------------------- */
+/* ---------------------------------------------------------------
+   PREVIEW - live sample text
+   --------------------------------------------------------------- */
 
 .preview-wrap {
   padding: 13px 16px 14px;
   background: var(--surface);
   border-bottom: 1.5px solid var(--border);
-  transition: background-color 0.2s;
+  transition: background-color 0.2s; /* smoothly changes when the user picks a bg colour */
 }
 
 .preview-label {
@@ -206,12 +230,15 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
+/* Smooth transitions so changes to font/size/colour animate instead of jumping. */
 .preview-text {
   transition: font-family 0.15s, font-size 0.1s, color 0.15s,
               line-height 0.15s, letter-spacing 0.1s;
 }
 
-/* -- Controls section (3 rows) --------------------------------- */
+/* ---------------------------------------------------------------
+   CONTROLS SECTION - font size, line spacing, letter spacing rows
+   --------------------------------------------------------------- */
 
 .controls-section {
   background: var(--bg);
@@ -226,10 +253,12 @@ html, body {
   border-bottom: 1px solid var(--border);
 }
 
+/* Last row doesn't need a bottom border - the section border handles it. */
 .control-row:last-child {
   border-bottom: none;
 }
 
+/* The icon on the left of each row - visual hint for what the control does. */
 .control-icon {
   width: 32px;
   flex-shrink: 0;
@@ -239,6 +268,7 @@ html, body {
   justify-content: center;
 }
 
+/* "Aa" text that physically grows/shrinks as the user adjusts font size. */
 .icon-size-text {
   font-weight: 800;
   font-size: 14px;
@@ -248,6 +278,7 @@ html, body {
   line-height: 1;
 }
 
+/* "AB" text whose letter spacing mirrors the letter spacing slider. */
 .icon-letter-text {
   font-weight: 700;
   font-size: 13px;
@@ -258,6 +289,7 @@ html, body {
   line-height: 1;
 }
 
+/* The setting name label - sits between the icon and the stepper buttons. */
 .control-label {
   flex: 1;
   font-size: 13px;
@@ -265,6 +297,7 @@ html, body {
   color: var(--text);
 }
 
+/* Container for the −, value, + buttons that all sit in a line. */
 .stepper {
   display: flex;
   align-items: center;
@@ -272,7 +305,9 @@ html, body {
   flex-shrink: 0;
 }
 
-/* -- Step buttons + value -------------------------------------- */
+/* ---------------------------------------------------------------
+   STEP BUTTONS + VALUE DISPLAY
+   --------------------------------------------------------------- */
 
 .step-btn {
   width: 28px;
@@ -292,6 +327,7 @@ html, body {
   flex-shrink: 0;
 }
 
+/* Fills solid blue on hover so it's clear the button is clickable. */
 .step-btn:hover {
   background: var(--accent);
   border-color: var(--accent);
@@ -299,10 +335,13 @@ html, body {
   box-shadow: var(--shadow-sm);
 }
 
+/* Tiny squish animation when you actually click it. */
 .step-btn:active {
   transform: scale(0.88);
 }
 
+/* The number shown between the + and − buttons. Tabular nums keeps
+   the width consistent so the number doesn't jump around as it changes. */
 .step-val {
   font-size: 13px;
   font-weight: 700;
@@ -312,26 +351,33 @@ html, body {
   text-align: center;
 }
 
-/* -- Toggle Switch --------------------------------------------- */
+/* ---------------------------------------------------------------
+   TOGGLE SWITCH - the on/off control at the top right
+   --------------------------------------------------------------- */
 
+/* The label wraps the hidden checkbox so clicking anywhere on the
+   toggle (track or knob) toggles the checkbox. */
 .switch {
   display: inline-flex;
   cursor: pointer;
   flex-shrink: 0;
 }
 
+/* The checkbox itself is invisible - the track and knob are the visual. */
 .switch input { position: absolute; opacity: 0; width: 0; height: 0; }
 
+/* The pill-shaped background of the toggle. */
 .switch-track {
   position: relative;
   display: block;
   width: 42px;
   height: 24px;
-  background: var(--border);
+  background: var(--border); /* grey when off */
   border-radius: 12px;
   transition: background 0.2s;
 }
 
+/* The white circle that slides left/right. */
 .switch-knob {
   position: absolute;
   top: 3px;
@@ -344,20 +390,27 @@ html, body {
   transition: transform 0.2s;
 }
 
+/* When the checkbox is checked: track turns blue and knob slides right. */
 .switch input:checked ~ .switch-track              { background: var(--accent); }
 .switch input:checked ~ .switch-track .switch-knob { transform: translateX(18px); }
+
+/* Keyboard focus ring - shows when navigating with Tab. */
 .switch input:focus-visible ~ .switch-track {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-/* -- Footer ---------------------------------------------------- */
+/* ---------------------------------------------------------------
+   FOOTER - reset button
+   --------------------------------------------------------------- */
 
 .footer {
   padding: 12px 16px 14px;
   background: var(--bg);
 }
 
+/* The reset button is outlined in orange rather than filled, so it
+   doesn't look as scary - but it fills on hover to signal it's destructive. */
 .reset-btn {
   width: 100%;
   padding: 9px;

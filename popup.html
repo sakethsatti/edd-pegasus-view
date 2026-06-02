@@ -5,25 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pegasus View</title>
   <link rel="stylesheet" href="popup.css">
+  <!-- Preconnect hints tell the browser to open a connection to Google Fonts early,
+       so the fonts load faster when the popup opens. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Load the dyslexia-friendly fonts from Google (Atkinson, Lexend, Comic Neue). -->
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Lexend:wght@300;400;500;600&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <!-- OpenDyslexic isn't on Google Fonts, so we grab it from a separate CDN. -->
   <style>@import url('https://fonts.cdnfonts.com/css/opendyslexic');</style>
 </head>
 <body>
 <div class="popup">
 
+  <!-- HEADER: logo on the left, on/off toggle on the right -->
   <header class="header">
     <div class="brand">
       <img class="brand-icon" src="icons/icon48.png" alt="">
       <span class="brand-name">Pegasus View</span>
     </div>
+    <!-- The toggle switch. The visible track/knob are CSS - the actual
+         checkbox input is hidden underneath and handled by popup.js. -->
     <label class="switch" title="Enable / Disable">
       <input type="checkbox" id="enabled">
       <span class="switch-track"><span class="switch-knob"></span></span>
     </label>
   </header>
 
+  <!-- CONTROLS ROW: font picker + text colour swatch + background colour swatch -->
   <div class="controls-row">
+
+    <!-- Font family dropdown. The custom SVG arrow replaces the browser default one. -->
     <div class="select-wrap">
       <select id="fontFamily">
         <option value="OpenDyslexic">OpenDyslexic</option>
@@ -36,27 +46,39 @@
       </select>
       <svg class="select-arrow" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
+
+    <!-- Text colour: coloured square opens the native colour picker.
+         "Page default" button below toggles back to leaving the colour alone. -->
     <div class="color-group">
       <label class="color-btn" id="fontColor-btn" title="Text color">
         <input type="color" id="fontColor" value="#1a1a1a">
       </label>
       <button class="dflt-btn" id="fontColor-default" title="Use page default text color">Page default</button>
     </div>
+
+    <!-- Background colour: same pattern as text colour above. -->
     <div class="color-group">
       <label class="color-btn" id="bgColor-btn" title="Background color">
         <input type="color" id="bgColor" value="#fffde7">
       </label>
       <button class="dflt-btn" id="bgColor-default" title="Use page default background">Page default</button>
     </div>
+
   </div>
 
+  <!-- PREVIEW: sample text that updates live as the user changes settings.
+       popup.js writes directly to the styles of preview-text and preview-wrap. -->
   <div class="preview-wrap" id="preview-wrap">
     <span class="preview-label">Preview</span>
     <p class="preview-text" id="preview-text">The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump!</p>
   </div>
 
+  <!-- NUMERIC CONTROLS: font size, line spacing, letter spacing.
+       Each row has a − button, a live value readout, and a + button.
+       The icons on the left give a visual hint for what each setting does. -->
   <div class="controls-section">
 
+    <!-- Font size row. The "Aa" text grows/shrinks as you adjust. -->
     <div class="control-row">
       <div class="control-icon">
         <span id="icon-size" class="icon-size-text">Aa</span>
@@ -69,10 +91,11 @@
       </div>
     </div>
 
+    <!-- Line spacing row. The three-line SVG icon loosely represents lines of text. -->
     <div class="control-row">
       <div class="control-icon">
         <svg width="22" height="20" viewBox="0 0 22 20" fill="none" aria-hidden="true">
-          <rect x="0" y="0"  width="22" height="2.5" rx="1.25" fill="currentColor"/>
+          <rect x="0" y="0"    width="22" height="2.5" rx="1.25" fill="currentColor"/>
           <rect x="0" y="8.75" width="22" height="2.5" rx="1.25" fill="currentColor"/>
           <rect x="0" y="17.5" width="14" height="2.5" rx="1.25" fill="currentColor"/>
         </svg>
@@ -85,6 +108,7 @@
       </div>
     </div>
 
+    <!-- Letter spacing row. The "AB" text spreads out as you increase the value. -->
     <div class="control-row">
       <div class="control-icon">
         <span id="icon-letter" class="icon-letter-text">AB</span>
@@ -99,6 +123,7 @@
 
   </div>
 
+  <!-- FOOTER: reset button wipes everything back to defaults. -->
   <footer class="footer">
     <button id="reset" class="reset-btn">Reset to Defaults</button>
   </footer>

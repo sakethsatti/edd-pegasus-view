@@ -5,19 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to Pegasus View</title>
   <link rel="stylesheet" href="onboarding.css">
+  <!-- Preconnect hints tell the browser to open a connection to Google Fonts early
+       so the fonts are ready faster when the page loads. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- The dyslexia-friendly fonts from Google (Atkinson, Lexend, Comic Neue). -->
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Lexend:wght@300;400;500;600&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <!-- OpenDyslexic isn't on Google Fonts - loaded from a separate CDN. -->
   <style>@import url('https://fonts.cdnfonts.com/css/opendyslexic');</style>
 </head>
 <body>
 
+<!-- Two-column grid: sample text fills the left, settings panel is fixed on the right. -->
 <div class="layout">
 
-  <!-- - Main readable content ------------------->
+  <!-- LEFT COLUMN: the readable sample text.
+       onboarding.js changes the font/size/colour/spacing on this element live
+       as the user adjusts the controls in the panel on the right. -->
   <main class="content" id="content">
 
     <div class="content-inner">
 
+      <!-- Page logo and title -->
       <header class="page-header">
         <img src="icons/icon128.png" alt="Pegasus View" class="page-logo">
         <div>
@@ -25,6 +33,8 @@
           <p class="page-subtitle">Reading made easier, your way.</p>
         </div>
       </header>
+
+      <!-- Each section is a chunk of readable text the user can see update in real time. -->
 
       <section class="section">
         <h2>Welcome.</h2>
@@ -92,6 +102,8 @@
         </p>
       </section>
 
+      <!-- A pangram section - sentences that use every letter of the alphabet,
+           good for testing what a font looks like across all characters. -->
       <section class="section">
         <h2>Try reading this.</h2>
         <p>
@@ -114,13 +126,16 @@
     </div>
   </main>
 
-  <!-- - Settings panel -------------------- -->
+  <!-- RIGHT COLUMN: the settings panel.
+       Sticks to the top of the screen as the user scrolls the left column.
+       onboarding.js wires up all the controls in here. -->
   <aside class="panel">
     <div class="panel-inner">
 
       <h2 class="panel-title">Your Settings</h2>
       <p class="panel-hint">Changes show live in the text on the left.</p>
 
+      <!-- Font family picker -->
       <div class="setting">
         <label class="setting-label" for="fontFamily">Font</label>
         <div class="select-wrap">
@@ -137,6 +152,7 @@
         </div>
       </div>
 
+      <!-- Font size stepper: − and + buttons with a live value readout in the middle. -->
       <div class="setting">
         <label class="setting-label">Text Size</label>
         <div class="stepper">
@@ -146,6 +162,7 @@
         </div>
       </div>
 
+      <!-- Line spacing stepper. -->
       <div class="setting">
         <label class="setting-label">Line Spacing</label>
         <div class="stepper">
@@ -155,6 +172,7 @@
         </div>
       </div>
 
+      <!-- Letter spacing stepper. -->
       <div class="setting">
         <label class="setting-label">Letter Spacing</label>
         <div class="stepper">
@@ -164,6 +182,9 @@
         </div>
       </div>
 
+      <!-- Colour pickers: text colour and background colour side by side.
+           The visible rectangle opens the native OS colour picker.
+           "Website default" below each one toggles back to leaving that colour alone. -->
       <div class="setting setting-colors">
         <div class="color-setting">
           <label class="setting-label" for="fontColor">Text colour</label>
@@ -181,6 +202,7 @@
         </div>
       </div>
 
+      <!-- Saves everything to Chrome storage and closes the tab. -->
       <button class="save-btn" id="save">Save and Start</button>
       <p class="panel-note">You can change these any time from the toolbar icon.</p>
 
